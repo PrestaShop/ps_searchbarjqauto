@@ -17,10 +17,17 @@ $(document).ready(function () {
         },
         renderItem: function (product, search) {
 
-            return '<div class="media autocomplete-suggestion" data-url="' + product.url + '">' +
-                '<img class="mr-1" src="' + product.cover.bySize.small_default.url + '" width="' + product.cover.bySize.small_default.width + '" height="' + product.cover.bySize.small_default.height + '">' +
-                '<div class="media-body">' + product.name + '</div>' +
-                '</div>';
+            if(product.cover) {
+                return '<div class="media autocomplete-suggestion" data-url="' + product.url + '">' +
+                  '<img class="mr-1" src="' + product.cover.bySize.small_default.url + '" width="' + product.cover.bySize.small_default.width + '" height="' + product.cover.bySize.small_default.height + '">' +
+                  '<div class="media-body">' + product.name + '</div>' +
+                  '</div>';
+            } else {
+                return '<div class="media autocomplete-suggestion" data-url="' + product.url + '">' +
+                  '<img class="mr-1" src="' + no_picture_image.bySize.small_default.url + '" width="' + no_picture_image.bySize.small_default.width + '" height="' + no_picture_image.bySize.small_default.height + '">' +
+                  '<div class="media-body">' + product.name + '</div>' +
+                  '</div>';
+            }
         },
         onSelect: function (e, term, item) {
             e.preventDefault();
