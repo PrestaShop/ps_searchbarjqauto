@@ -28,6 +28,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\PrestaShop\Adapter\Image\ImageRetriever;
 use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 
 class Ps_Searchbarjqauto extends Module implements WidgetInterface
@@ -62,6 +63,8 @@ class Ps_Searchbarjqauto extends Module implements WidgetInterface
 
     public function hookHeader()
     {
+        $imageRetriever = new ImageRetriever($this->context->link);
+        Media::addJsDef(array('no_picture_image' => $imageRetriever->getNoPictureImage($this->context->language)));
         $this->context->controller->registerStylesheet('modules-ps_searchbarjqauto', 'modules/'.$this->name.'/views/css/jquery.auto-complete.css', ['media' => 'all', 'priority' => 150]);
         $this->context->controller->registerJavascript('modules-autocomplete', 'modules/'.$this->name.'/views/js/jquery.auto-complete.min.js', ['position' => 'bottom', 'priority' => 150]);
         $this->context->controller->registerJavascript('modules-ps_searchbarjqauto', 'modules/'.$this->name.'/views/js/ps_searchbarjqauto.js', ['position' => 'bottom', 'priority' => 150]);
